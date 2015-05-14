@@ -41,12 +41,11 @@ module.exports = function (grunt) {
         var viewBox = imgFile.match(/viewBox="\d+\s\d+\s\d+\s\d+"/);
 
         var svgOnly = imgFile.match(/<svg[^>]*>([\s\S]*?)<\/svg>/)[1];
+            svgOnly = svgOnly.replace(/fill="#[\w\d]{3,6}"\s/g, "")
 
         var svgSymbol = '<symbol id="icon-' + onlyNameNoIcon + '" ' + viewBox + '>'
           + svgOnly
           + "</symbol>";
-
-        // grunt.log.writeln(file.dest);
 
         grunt.file.write(file.dest, svgSymbol);
         grunt.log.writeln('File "' + file.dest + '" created.');
